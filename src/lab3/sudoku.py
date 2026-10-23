@@ -78,8 +78,6 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     ['3', '6', '9']
     """
     return [arr[pos[1]] for arr in grid]
-    pass
-
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
     """Возвращает все значения из квадрата, в который попадает позиция pos
@@ -91,7 +89,13 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
+    block = []
+    for row in range(len(grid)):
+        if row // 3 == pos[0] // 3 :
+            for col in range(len(grid)):
+                if col // 3 == pos[1] // 3:
+                    block.append(grid[row][col])
+    return block
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
