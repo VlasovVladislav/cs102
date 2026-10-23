@@ -1,3 +1,8 @@
+""" Модуль с реализацией шифра Цезаря """
+
+import string
+
+
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
@@ -10,8 +15,20 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     >>> encrypt_caesar("")
     ''
     """
+    if any(i not in string.printable for i in plaintext):
+        raise ValueError("Error, encrypt_caesar may contains only Latin script")
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    alf = "abcdefghijklmnopqrstuvwxyz"
+    for letter in plaintext:
+        if letter not in string.ascii_letters:
+            ciphertext += letter
+        else:
+            if letter.islower():
+                letter_cesar = alf[((alf.index(letter) + shift) % 26)]
+                ciphertext += letter_cesar
+            else:
+                letter_cesar = (alf[((alf.index(letter.lower()) + shift) % 26)]).upper()
+                ciphertext += letter_cesar
     return ciphertext
 
 
@@ -28,5 +45,5 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    plaintext = encrypt_caesar(ciphertext, -shift)
     return plaintext
